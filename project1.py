@@ -52,14 +52,18 @@ def findMinMax(allmonths):
   maximum = []
   for month in allmonths:
     month = [int(x) for x in month] # convert strings into ints
-    month.sort()
-    minimum.append(month[0])
+    month.sort()  
+    if len(month) == 1:
+      minimum.append(month[0])
+    else:
+      for val in month:
+        if val == 0:
+          month.remove(val)
+      minimum.append(month[0])
   for month in allmonths:
     month = [int(x) for x in month] # convert strings into ints
     month.sort(reverse=True)
     maximum.append(month[0])
-  # if '0' in month:
-  #   month.remove('0')
   return minimum, maximum
 
 def average_standarddev(allmonths):
@@ -78,7 +82,7 @@ def average_standarddev(allmonths):
     average.append(avg) # will hold arithmetic mean of each month
     sumsofeachmonth.append(sum) # will hold sum of each month
 
-    # work out standard deviation
+    # work out standard deviation - followed steps from https://www.mathsisfun.com/data/standard-deviation-calculator.html
     sumofdifferences = 0 # Add up the Squared Differences
     for val in month:
       differences = (val-avg)**2 # take each number, subtract the mean and square the result
